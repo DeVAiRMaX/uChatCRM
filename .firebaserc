@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "uchat-19620": {
+      "hosting": {
+        "test": [
+          "uchat-19620"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "uchat-19620"
+  }
+}

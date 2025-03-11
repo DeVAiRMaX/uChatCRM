@@ -1,0 +1,50 @@
+<!-- Main App Layout -->
+<mat-drawer-container class="app-container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="false">
+    <div class="logo-container">
+      <div class="logo">
+        <mat-icon class="logo-icon">hub</mat-icon>
+        <span class="logo-text">uChat</span>
+      </div>
+    </div>
+    <nav class="sidenav-nav">
+      <a class="nav-item" [routerLink]="['/']" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" [routerLink]="['/user']" routerLinkActive="active">
+        <mat-icon>people</mat-icon>
+        <span>Benutzer</span>
+      </a>
+      <a class="nav-item" routerLinkActive="active">
+        <mat-icon>business</mat-icon>
+        <span>Unternehmen</span>
+      </a>
+      <a class="nav-item" routerLinkActive="active">
+        <mat-icon>assessment</mat-icon>
+        <span>Berichte</span>
+      </a>
+      <a class="nav-item" routerLinkActive="active">
+        <mat-icon>settings</mat-icon>
+        <span>Einstellungen</span>
+      </a>
+    </nav>
+  </mat-drawer>
+  
+  <mat-toolbar class="toolbar">
+    <button mat-icon-button class="menu-button" (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button class="toolbar-button">
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button class="toolbar-button">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

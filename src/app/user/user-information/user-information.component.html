@@ -1,0 +1,92 @@
+<div class="user-detail-container">
+  <!-- Hauptinformationskarte -->
+  <mat-card class="main-info-card">
+    <div class="header-section">
+      <div class="user-avatar">
+        <mat-icon class="avatar-icon">account_circle</mat-icon>
+      </div>
+      <div class="user-header-info">
+        <h2 class="user-name">{{ user.firstName }} {{ user.lastName }}</h2>
+        <div class="user-meta">
+          <span class="meta-item">
+            <mat-icon>email</mat-icon>
+            {{ user.email }}
+          </span>
+          <span class="meta-item">
+            <mat-icon>cake</mat-icon>
+            {{ user.birthday | date:'dd.MM.yyyy' }}
+          </span>
+        </div>
+      </div>
+      <button mat-icon-button class="settings-button" [matMenuTriggerFor]="userMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu" class="user-menu">
+        <button mat-menu-item (click)="openEditUserDialog()">
+          <mat-icon>edit</mat-icon>
+          <span>Bearbeiten</span>
+        </button>
+        <button mat-menu-item class="delete-button" (click)="DeleteUser()">
+          <mat-icon>delete</mat-icon>
+          <span>Löschen</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-card>
+
+  <!-- Adresskarte -->
+  <mat-card class="address-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>location_on</mat-icon>
+      <mat-card-title>Adresse</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="address-content">
+        <p class="street">{{ user.street }}</p>
+        <p class="city">{{ user.zipCode }} {{ user.city }}</p>
+        <div class="map-placeholder">
+          <mat-icon class="map-icon">map</mat-icon>
+          <span>Kartenansicht</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Zusätzliche Informationen -->
+  <div class="info-grid">
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>history</mat-icon>
+        <mat-card-title>Letzte Aktivitäten</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListItemIcon>edit</mat-icon>
+            <div matListItemTitle>Profil aktualisiert</div>
+            <div matListItemLine>Vor 2 Tagen</div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>assessment</mat-icon>
+        <mat-card-title>Statistiken</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Aufträge</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">0€</div>
+            <div class="stat-label">Umsatz</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

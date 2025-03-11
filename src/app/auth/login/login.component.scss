@@ -1,0 +1,336 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logoSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes logoTextFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes successScale {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+:host {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+
+.login-card-header{
+  margin: 0 !important;
+}
+
+.login-card-title {
+  padding-bottom: 36px !important;
+  margin: 0 !important;
+}
+
+.login-card-header {
+  margin-bottom: 0 !important;
+}
+
+.login-overlay {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, rgba(63, 81, 181, 1), rgba(103, 58, 183, 1));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  position: relative;
+  animation: fadeIn 0.5s ease-out;
+
+  &.submitting, &.success {
+    mat-card-content {
+      filter: blur(3px);
+      pointer-events: none;
+    }
+  }
+
+  .success-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 16px;
+    z-index: 10;
+    
+    .success-icon {
+      font-size: 4rem;
+      height: 4rem;
+      width: 4rem;
+      color: #4CAF50;
+      margin-bottom: 1rem;
+      animation: successScale 0.5s ease-out forwards;
+    }
+    
+    .success-text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #333;
+      margin: 0 0 0.5rem 0;
+      animation: fadeIn 0.5s ease-out 0.3s both;
+    }
+    
+    .success-subtext {
+      font-size: 1rem;
+      color: #666;
+      margin: 0;
+      animation: fadeIn 0.5s ease-out 0.5s both;
+    }
+  }
+
+  .submit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    z-index: 10;
+
+    .submit-text {
+      margin-top: 1rem;
+      color: #666;
+    }
+  }
+
+  mat-card-header {
+    margin-bottom: 1rem;
+    
+    .login-card-title {
+      font-size: 1.8rem;
+      padding-bottom: 1rem !important;
+      margin: 0;
+      opacity: 0;
+      animation: titleFadeIn 0.8s ease-out forwards;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(45deg, #3f51b5, #7c4dff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.02);
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  mat-card-content {
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .login-error {
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: rgba(244, 67, 54, 0.1);
+        color: #f44336;
+        margin-bottom: 0.75rem;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      mat-form-field {
+        width: 100%;
+        animation: fadeIn 0.5s ease-out;
+
+        &:nth-child(1) {
+          animation-delay: 0.5s;
+        }
+        &:nth-child(2) {
+          animation-delay: 0.6s;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          transition: transform 0.3s ease;
+        }
+
+        ::ng-deep .mat-form-field-outline {
+          transition: color 0.3s ease;
+        }
+
+        &.mat-focused {
+          ::ng-deep .mat-form-field-outline {
+            color: #3f51b5;
+          }
+        }
+      }
+
+      mat-checkbox {
+        margin: 0.25rem 0;
+        animation: fadeIn 0.5s ease-out 0.7s both;
+      }
+
+      .login-button {
+        margin-top: 0.75rem;
+        padding: 1rem;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        animation: fadeIn 0.5s ease-out 0.8s both;
+        transition: all 0.3s ease;
+
+        &:not([disabled]) {
+          background: linear-gradient(45deg, #3f51b5, #7c4dff);
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(63, 81, 181, 0.4);
+          }
+        }
+      }
+    }
+  }
+
+  .login-footer {
+    margin-top: 1rem;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out 0.9s both;
+
+    p {
+      color: #666;
+      margin: 0;
+
+      a {
+        color: #3f51b5;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: #7c4dff;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.login-card-footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+// Responsive Design
+@media (max-width: 600px) {
+  .login-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+}
+
+.logo-container {
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  .logo-icon {
+    font-size: 2rem;
+    height: 2rem;
+    width: 2rem;
+    color: white;
+    animation: logoSpin 3s ease-in-out infinite;
+    
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+  
+  .logo-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: logoTextFadeIn 0.8s ease-out forwards;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}

@@ -1,0 +1,49 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<h2 mat-dialog-title>Benutzer bearbeiten</h2>
+
+<mat-dialog-content class="edit-dialog">
+  <div class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Vorname</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.firstName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nachname</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.lastName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>E-Mail</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Geburtstag</mat-label>
+      <input [disabled]="isLoading" matInput [matDatepicker]="picker" [(ngModel)]="birthday" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Straße + Hausnummer</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.street" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>PLZ</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.zipCode" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Stadt</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.city" />
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" [disabled]="isLoading">Abbrechen</button>
+  <button mat-flat-button color="primary" (click)="saveUser()" [disabled]="isLoading">Speichern</button>
+</mat-dialog-actions>

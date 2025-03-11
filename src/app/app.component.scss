@@ -1,0 +1,265 @@
+.mat-drawer-container {
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.sidenav-header {
+  min-width: 280px;
+  border-radius: unset !important;
+  background: linear-gradient(135deg, #1976d2 0%, #64b5f6 100%);
+  border: none !important;
+  
+  mat-card-content {
+    padding: 24px 16px;
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: start;
+    }
+  }
+}
+
+.menu-btn {
+  cursor: pointer;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.example-sidenav-content {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.toolbar {
+  min-height: 64px;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.sidenav-list {
+  padding: 16px 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidenav-item {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  cursor: pointer !important;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-left-color: #1976d2;
+  }
+  
+  mat-icon {
+    margin-right: 12px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  &.active {
+    background-color: rgba(25, 118, 210, 0.12);
+    border-left-color: #1976d2;
+    
+    mat-icon {
+      color: #1976d2;
+    }
+  }
+}
+
+.example-sidenav {
+  background: white;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+button[mat-icon-button] {
+  margin-left: 8px;
+  
+  mat-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  
+  &:hover {
+    mat-icon {
+      color: #1976d2;
+    }
+  }
+}
+
+@keyframes logoSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes logoTextFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.sidenav {
+  width: 260px;
+  background: linear-gradient(135deg, rgba(63, 81, 181, 0.97), rgba(103, 58, 183, 0.97));
+  backdrop-filter: blur(10px);
+  border: none;
+
+  .logo-container {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      
+      .logo-icon {
+        font-size: 2rem;
+        height: 2rem;
+        width: 2rem;
+        color: white;
+        animation: logoSpin 3s ease-in-out infinite;
+        
+        &:hover {
+          animation-play-state: paused;
+        }
+      }
+      
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        animation: logoTextFadeIn 0.8s ease-out forwards;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  .sidenav-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      mat-icon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      span {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        transform: translateX(4px);
+
+        mat-icon {
+          color: white;
+        }
+      }
+
+      &.active {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+        mat-icon {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.toolbar {
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
+  height: 64px;
+
+  .menu-button {
+    color: #666;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #3f51b5;
+      transform: scale(1.1);
+    }
+  }
+
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .toolbar-button {
+    color: #666;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+
+    &:hover {
+      color: #3f51b5;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.content {
+  padding: 2rem;
+  background: #f5f5f5;
+  min-height: calc(100vh - 64px);
+}

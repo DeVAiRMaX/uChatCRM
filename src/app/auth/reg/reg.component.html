@@ -1,0 +1,156 @@
+<div class="reg-overlay">
+  <div class="logo-container">
+    <div class="logo">
+      <mat-icon class="logo-icon">hub</mat-icon>
+      <span class="logo-text">uChat</span>
+    </div>
+  </div>
+  <mat-card class="reg-card" [class.submitting]="isLoading" [class.success]="showSuccess">
+    <div class="success-overlay" *ngIf="showSuccess">
+      <mat-icon class="success-icon" color="primary">check_circle</mat-icon>
+      <p class="success-text">Registrierung erfolgreich!</p>
+      <p class="success-subtext">Sie werden zum Login weitergeleitet...</p>
+    </div>
+    <div class="submit-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+      <p class="submit-text">Registrierung wird verarbeitet...</p>
+    </div>
+    <mat-card-header class="reg-card-header">
+      <mat-card-title
+        ><p class="reg-card-title">Registrieren</p></mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <form #regForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-error *ngIf="registrationError" class="registration-error">
+          {{ registrationError }}
+        </mat-error>
+        <mat-form-field appearance="outline">
+          <mat-label>Vorname</mat-label>
+          <input
+            [disabled]="isLoading"
+            matInput
+            type="text"
+            name="firstName"
+            [(ngModel)]="registerData.firstName"
+            required
+            minlength="2"
+            #firstName="ngModel"
+          />
+          <mat-error
+            *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+          >
+            <span *ngIf="firstName.errors?.['required']"
+              >Vorname ist erforderlich</span
+            >
+            <span *ngIf="firstName.errors?.['minlength']"
+              >Mindestens 2 Zeichen erforderlich</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nachname</mat-label>
+          <input
+            [disabled]="isLoading"
+            matInput
+            type="text"
+            name="lastName"
+            [(ngModel)]="registerData.lastName"
+            required
+            minlength="2"
+            #lastName="ngModel"
+          />
+          <mat-error
+            *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+          >
+            <span *ngIf="lastName.errors?.['required']"
+              >Nachname ist erforderlich</span
+            >
+            <span *ngIf="lastName.errors?.['minlength']"
+              >Mindestens 2 Zeichen erforderlich</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>E-Mail</mat-label>
+          <input
+            [disabled]="isLoading"
+            matInput
+            type="email"
+            name="email"
+            [(ngModel)]="registerData.email"
+            required
+            email
+            #email="ngModel"
+          />
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors?.['required']"
+              >E-Mail ist erforderlich</span
+            >
+            <span *ngIf="email.errors?.['email']"
+              >Bitte geben Sie eine gültige E-Mail-Adresse ein</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Passwort</mat-label>
+          <input
+            [disabled]="isLoading"
+            matInput
+            type="password"
+            name="password"
+            [(ngModel)]="registerData.password"
+            required
+            minlength="6"
+            #password="ngModel"
+          />
+          <mat-error
+            *ngIf="password.invalid && (password.dirty || password.touched)"
+          >
+            <span *ngIf="password.errors?.['required']"
+              >Passwort ist erforderlich</span
+            >
+            <span *ngIf="password.errors?.['minlength']"
+              >Mindestens 6 Zeichen erforderlich</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Passwort wiederholen</mat-label>
+          <input
+            [disabled]="isLoading"
+            matInput
+            type="password"
+            name="confirmPassword"
+            [(ngModel)]="registerData.confirmPassword"
+            required
+            [pattern]="registerData.password"
+            #confirmPassword="ngModel"
+          />
+          <mat-error
+            *ngIf="
+              confirmPassword.invalid &&
+              (confirmPassword.dirty || confirmPassword.touched)
+            "
+          >
+            <span *ngIf="confirmPassword.errors?.['required']"
+              >Passwortwiederholung ist erforderlich</span
+            >
+            <span *ngIf="confirmPassword.errors?.['pattern']"
+              >Passwörter stimmen nicht überein</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="register-button"
+          type="submit"
+          [disabled]="regForm.invalid || isLoading"
+        >
+          Registrieren
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

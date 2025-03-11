@@ -1,0 +1,82 @@
+<div class="login-overlay">
+  <div class="logo-container">
+    <div class="logo">
+      <mat-icon class="logo-icon">hub</mat-icon>
+      <span class="logo-text">uChat</span>
+    </div>
+  </div>
+  <mat-card
+    class="login-card"
+    [class.submitting]="isLoading"
+    [class.success]="showSuccess"
+  >
+    <div class="success-overlay" *ngIf="showSuccess">
+      <mat-icon class="success-icon" color="primary">check_circle</mat-icon>
+      <p class="success-text">Login erfolgreich!</p>
+      <p class="success-subtext">Sie werden weitergeleitet...</p>
+    </div>
+    <div class="submit-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+      <p class="submit-text">Login wird überprüft...</p>
+    </div>
+    <mat-card-header>
+      <mat-card-title>
+        <p class="login-card-title">Anmelden</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-error *ngIf="loginError" class="login-error">
+          {{ loginError }}
+        </mat-error>
+        <mat-form-field appearance="outline">
+          <mat-label>E-Mail</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            [(ngModel)]="loginData.email"
+            required
+            email
+            #email="ngModel"
+          />
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors?.['required']">E-Mail ist erforderlich</span>
+            <span *ngIf="email.errors?.['email']">Bitte geben Sie eine gültige E-Mail-Adresse ein</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Passwort</mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            [(ngModel)]="loginData.password"
+            required
+            minlength="6"
+            #password="ngModel"
+          />
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors?.['required']">Passwort ist erforderlich</span>
+            <span *ngIf="password.errors?.['minlength']">Mindestens 6 Zeichen erforderlich</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-checkbox name="rememberMe" [(ngModel)]="loginData.rememberMe" color="primary">
+          Angemeldet bleiben
+        </mat-checkbox>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-button"
+          type="submit"
+          [disabled]="loginForm.invalid || isLoading"
+        >
+          Anmelden
+        </button>
+      </form>
+      <div class="login-footer">
+        <p>Noch kein Konto? <a [routerLink]="['/register']">Registrieren</a></p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

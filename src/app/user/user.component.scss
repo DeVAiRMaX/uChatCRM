@@ -1,0 +1,165 @@
+.add-user-btn{
+    background-color: rgb(165, 165, 165);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.user-card{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover{
+        background-color: #f0f0f0;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    }
+    p{
+        margin: 0;
+    }
+}
+
+.edit-icon{
+    transition: all 0.1.5s ease;
+    &:hover{
+        transform: scale(1.2);
+    }
+}
+
+.delete-icon{
+    transition: all 0.1.5s ease;
+    &:hover{
+        transform: scale(1.2);
+    }
+}
+
+.user-container {
+  padding: 24px;
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.user-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+
+    .user-actions {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #1976d2, #64b5f6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.user-content {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  padding: 16px;
+  align-items: center;
+}
+
+.user-avatar {
+  .avatar-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+    color: #1976d2;
+  }
+}
+
+.user-info {
+  overflow: hidden;
+
+  .user-name {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .user-email,
+  .user-location {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    
+    .info-icon {
+      font-size: 16px;
+      margin-right: 8px;
+      opacity: 0.6;
+    }
+  }
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease;
+
+  button {
+    &.edit-button {
+      color: #1976d2;
+    }
+
+    &.delete-button {
+      color: #f44336;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+.add-user-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: linear-gradient(45deg, #1976d2, #64b5f6);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1) rotate(360deg);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+
+  mat-icon {
+    transition: all 0.3s ease;
+  }
+}   
