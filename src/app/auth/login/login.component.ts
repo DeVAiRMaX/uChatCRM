@@ -3,6 +3,7 @@ import { SharedModule } from '../../shared.module';
 import { FormsModule } from '@angular/forms';
 import { Firestore, collection, getDocs, query, where } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,11 @@ export class LoginComponent {
   showSuccess = false;
   loginError = '';
 
-  constructor(private firestore: Firestore, private router: Router) {}
+  constructor(
+    private firestore: Firestore, 
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   async onSubmit() {
     this.startLoading();
@@ -61,6 +66,7 @@ export class LoginComponent {
   private handleSuccess(): void {
     this.isLoading = false;
     this.showSuccess = true;
+    this.authService.login();
     this.navigateToDashboard();
   }
 

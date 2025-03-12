@@ -1,4 +1,3 @@
-<!-- Main App Layout -->
 <mat-drawer-container class="app-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="false">
     <div class="logo-container">
@@ -16,15 +15,15 @@
         <mat-icon>people</mat-icon>
         <span>Benutzer</span>
       </a>
-      <a class="nav-item" routerLinkActive="active">
+      <a class="nav-item" [routerLink]="['/company']" routerLinkActive="active">
         <mat-icon>business</mat-icon>
         <span>Unternehmen</span>
       </a>
-      <a class="nav-item" routerLinkActive="active">
+      <a class="nav-item" [routerLink]="['/reports']" routerLinkActive="active">
         <mat-icon>assessment</mat-icon>
         <span>Berichte</span>
       </a>
-      <a class="nav-item" routerLinkActive="active">
+      <a class="nav-item" [routerLink]="['/settings']" routerLinkActive="active">
         <mat-icon>settings</mat-icon>
         <span>Einstellungen</span>
       </a>
@@ -39,9 +38,13 @@
     <button mat-icon-button class="toolbar-button">
       <mat-icon>notifications</mat-icon>
     </button>
-    <button mat-icon-button class="toolbar-button">
+    <button mat-icon-button class="toolbar-button" [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Einstellungen</button>
+      <button mat-menu-item>Abmelden</button>
+    </mat-menu>
   </mat-toolbar>
 
   <div class="content">

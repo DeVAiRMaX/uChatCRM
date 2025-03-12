@@ -4,6 +4,10 @@ import { UserInformationComponent } from './user/user-information/user-informati
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegComponent } from './auth/reg/reg.component';
+import { authGuard } from './guards/auth.guard';
+import { SettingsComponent } from './settings/settings.component';
+import { ReportsComponent } from './reports/reports.component';
+import { CompanyComponent } from './company/company.component';
 
 export const routes: Routes = [
     {
@@ -12,15 +16,18 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'user',
-        component: UserComponent
+        component: UserComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'userinformation/:id',
-        component: UserInformationComponent
+        component: UserInformationComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'login',
@@ -29,5 +36,21 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegComponent
+    },
+    {
+        path: 'company',
+        component: CompanyComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'reports',
+        component: ReportsComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [authGuard]
     }
 ];
+
