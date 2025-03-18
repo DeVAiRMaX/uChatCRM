@@ -1,6 +1,84 @@
-<mat-card>
-  <mat-card-header>
-    <p>Berichte</p>
+<mat-card class="reports-container">
+  <mat-card-header class="reports-header">
+    <mat-card-title>Berichte & Analysen (Beispiel Ansicht)</mat-card-title>
+    <mat-card-subtitle>Übersicht und Statistiken</mat-card-subtitle>
   </mat-card-header>
+
+  <mat-card-content>
+    <div class="reports-grid">
+      <!-- Performance Karte -->
+      <mat-card class="report-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>trending_up</mat-icon>
+          <mat-card-title>Performance</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <mat-progress-bar mode="determinate" value="75"></mat-progress-bar>
+          </div>
+          <p>Gesamtleistung: 75%</p>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Aktivitäten Karte -->
+      <mat-card class="report-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>activity</mat-icon>
+          <mat-card-title>Aktivitäten</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <mat-icon matListIcon>chat</mat-icon>
+              <span matLine>Neue Gespräche: 12</span>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListIcon>check_circle</mat-icon>
+              <span matLine>Abgeschlossene: 8</span>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Statistiken Karte -->
+      <mat-card class="report-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>analytics</mat-icon>
+          <mat-card-title>Statistiken</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stats-container">
+            <div class="stat-item">
+              <span class="stat-value">24</span>
+              <span class="stat-label">Aktive Kunden</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">156</span>
+              <span class="stat-label">Gespräche</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Zeitraum Filter -->
+      <mat-card class="report-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>date_range</mat-icon>
+          <mat-card-title>Zeitraum</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field appearance="fill">
+            <mat-label>Zeitraum auswählen</mat-label>
+            <mat-select>
+              <mat-option value="today">Heute</mat-option>
+              <mat-option value="week">Diese Woche</mat-option>
+              <mat-option value="month">Dieser Monat</mat-option>
+              <mat-option value="year">Dieses Jahr</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
 </mat-card>
 
