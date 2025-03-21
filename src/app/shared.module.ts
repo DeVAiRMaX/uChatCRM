@@ -1,3 +1,9 @@
+/**
+ * @module SharedModule
+ * @description Gemeinsames Modul für die uChatCRM-Anwendung.
+ * Dieses Modul stellt wiederverwendbare Angular Material Komponenten und
+ * andere häufig verwendete Module für die gesamte Anwendung bereit.
+ */
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +25,16 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+/**
+ * @class SharedModule
+ * @description Angular-Modul, das gemeinsam genutzte Komponenten und Module bereitstellt
+ * 
+ * Enthält:
+ * - Angular Material UI-Komponenten
+ * - Formular-Module
+ * - Routing-Module
+ * - Common Module
+ */
 @NgModule({
   imports: [
     RouterLink,

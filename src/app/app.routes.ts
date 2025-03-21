@@ -1,3 +1,8 @@
+/**
+ * @module AppRoutes
+ * @description Routing-Konfiguration der uChatCRM-Anwendung.
+ * Definiert alle verfügbaren Routen und deren Zugriffsberechtigungen.
+ */
 import { Routes } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { UserInformationComponent } from './user/user-information/user-information.component';
@@ -9,6 +14,21 @@ import { SettingsComponent } from './settings/settings.component';
 import { ReportsComponent } from './reports/reports.component';
 import { CompanyComponent } from './company/company.component';
 
+/**
+ * @type {Routes}
+ * @description Definiert die Routing-Konfiguration der Anwendung
+ * 
+ * Enthält folgende Routen:
+ * - / : Login-Seite (Standard-Route)
+ * - /dashboard : Dashboard (geschützt)
+ * - /user : Benutzerverwaltung (geschützt)
+ * - /userinformation/:id : Detailansicht eines Benutzers (geschützt)
+ * - /login : Login-Seite
+ * - /register : Registrierungsseite
+ * - /company : Unternehmensverwaltung (geschützt)
+ * - /reports : Berichtsseite (geschützt)
+ * - /settings : Einstellungen (geschützt)
+ */
 export const routes: Routes = [
     {
         path: '',
