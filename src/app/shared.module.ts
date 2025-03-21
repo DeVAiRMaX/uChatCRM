@@ -12,7 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink, RouterOutlet } from '@angular/router';
@@ -22,7 +22,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   imports: [
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    ReactiveFormsModule
   ],
   exports: [
     MatButtonModule,
@@ -41,6 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSidenavModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterLink,
     RouterOutlet,
     MatListModule,

@@ -9,21 +9,30 @@ export class AuthService {
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   constructor() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    this.isAuthenticatedSubject.next(isLoggedIn);
+    this.checkAuthStatus();
   }
 
-  login() {
+  private checkAuthStatus() {
+    const token = localStorage.getItem('token');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    this.isAuthenticatedSubject.next(isLoggedIn && !!token);
+  }
+
+  login(token: string) {
+    localStorage.setItem('token', token);
     localStorage.setItem('isLoggedIn', 'true');
     this.isAuthenticatedSubject.next(true);
   }
 
   logout() {
+    localStorage.removeItem('token');
     localStorage.setItem('isLoggedIn', 'false');
     this.isAuthenticatedSubject.next(false);
   }
 
   isAuthenticated(): boolean {
-    return this.isAuthenticatedSubject.value;
+    const token = localStorage.getItem('token');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    return isLoggedIn && !!token;
   }
 } 

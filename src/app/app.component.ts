@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { SharedModule } from './shared.module';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,14 @@ import { SharedModule } from './shared.module';
 })
 export class AppComponent {
   title = 'test';
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

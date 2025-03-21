@@ -1,6 +1,6 @@
 <mat-card class="company-container">
   <mat-card-header class="company-header">
-    <mat-card-title>Unternehmensverwaltung (Beispiel Ansicht)</mat-card-title>
+    <mat-card-title>Unternehmensverwaltung</mat-card-title>
     <mat-card-subtitle>Verwalten Sie Ihre Geschäftskontakte</mat-card-subtitle>
   </mat-card-header>
 
@@ -13,14 +13,29 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 
-      <button mat-raised-button color="primary">
+      <button mat-raised-button color="primary" (click)="openAddCompanyDialog()">
         <mat-icon>add</mat-icon>
         Neues Unternehmen
       </button>
     </div>
 
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Lade Unternehmen...</p>
+    </div>
+
+    <!-- Keine Unternehmen vorhanden -->
+    <div *ngIf="!isLoading && companies.length === 0" class="no-companies">
+      <mat-icon>business_off</mat-icon>
+      <p>Keine Unternehmen vorhanden</p>
+      <button mat-raised-button color="primary" (click)="openAddCompanyDialog()">
+        Erstes Unternehmen hinzufügen
+      </button>
+    </div>
+
     <!-- Unternehmensliste -->
-    <div class="company-grid">
+    <div class="company-grid" *ngIf="!isLoading && companies.length > 0">
       <mat-card class="company-card" *ngFor="let company of companies">
         <mat-card-header>
           <mat-icon mat-card-avatar>business</mat-icon>
@@ -30,7 +45,7 @@
         
         <mat-card-content>
           <div class="company-info">
-            <p><mat-icon>location_on</mat-icon> {{company.standort}}, Deutschland</p>
+            <p><mat-icon>location_on</mat-icon> {{company.standort}}</p>
             <p><mat-icon>phone</mat-icon> {{company.telefon}}</p>
             <p><mat-icon>email</mat-icon> {{company.email}}</p>
           </div>
@@ -52,21 +67,22 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-button color="primary">
+          <button mat-button color="primary" (click)="openEditCompanyDialog(company)">
             <mat-icon>edit</mat-icon> Bearbeiten
           </button>
-          <button mat-button color="accent">
+          <button mat-button color="accent" (click)="openDetailsDialog(company)">
             <mat-icon>visibility</mat-icon> Details
           </button>
-          <button mat-button color="warn">
-            <mat-icon>delete</mat-icon>
+          <button mat-button color="warn" (click)="deleteCompany(company)">
+            <mat-icon>delete</mat-icon> Löschen
           </button>
         </mat-card-actions>
       </mat-card>
     </div>
 
     <!-- Pagination -->
-    <mat-paginator [length]="100"
+    <mat-paginator *ngIf="!isLoading && companies.length > 0"
+                   [length]="companies.length"
                    [pageSize]="10"
                    [pageSizeOptions]="[5, 10, 25, 50]"
                    aria-label="Seite auswählen">

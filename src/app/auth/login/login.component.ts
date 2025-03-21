@@ -66,7 +66,9 @@ export class LoginComponent {
   private handleSuccess(): void {
     this.isLoading = false;
     this.showSuccess = true;
-    this.authService.login();
+    // Generiere ein einfaches Token (in der Praxis sollte dies vom Backend kommen)
+    const token = btoa(this.loginData.email + ':' + Date.now());
+    this.authService.login(token);
     this.navigateToDashboard();
   }
 

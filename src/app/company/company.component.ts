@@ -1,24 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from './../shared.module';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCompanyComponent } from './add-company/add-company.component';
+import { EditCompanyComponent } from './edit-company/edit-company.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { DeleteCompanyDialogComponent } from './delete-company-dialog/delete-company-dialog.component';
+import { Firestore, collection, onSnapshot, doc, deleteDoc } from '@angular/fire/firestore';
+import { Company } from '../../assets/module/addcompany.class';
 
-interface Company {
-  id: number;
-  name: string;
-  branche: string;
-  standort: string;
-  telefon: string;
-  email: string;
-  stats: {
-    kontakte: number;
-    projekte: number;
-    aktivitaeten: number;
-  }
+interface CompanyWithId extends Company {
+  id: string;
 }
 
 @Component({
@@ -31,68 +29,104 @@ interface Company {
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     SharedModule
   ],
   templateUrl: './company.component.html',
   styleUrl: './company.component.scss'
 })
-export class CompanyComponent {
-  companies: Company[] = [
-    {
-      id: 1,
-      name: 'TechSolutions GmbH',
-      branche: 'Software & IT',
-      standort: 'Berlin',
-      telefon: '+49 30 123456-1',
-      email: 'kontakt@techsolutions.de',
-      stats: {
-        kontakte: 15,
-        projekte: 8,
-        aktivitaeten: 12
-      }
-    },
-    {
-      id: 2,
-      name: 'EcoEnergy AG',
-      branche: 'Erneuerbare Energien',
-      standort: 'Hamburg',
-      telefon: '+49 40 987654-2',
-      email: 'info@ecoenergy.de',
-      stats: {
-        kontakte: 24,
-        projekte: 6,
-        aktivitaeten: 18
-      }
-    },
-    {
-      id: 3,
-      name: 'MedCare Systems',
-      branche: 'Gesundheitswesen',
-      standort: 'München',
-      telefon: '+49 89 456789-3',
-      email: 'kontakt@medcare.de',
-      stats: {
-        kontakte: 32,
-        projekte: 12,
-        aktivitaeten: 25
-      }
-    },
-    {
-      id: 4,
-      name: 'LogistikPlus GmbH',
-      branche: 'Logistik & Transport',
-      standort: 'Frankfurt',
-      telefon: '+49 69 234567-4',
-      email: 'info@logistikplus.de',
-      stats: {
-        kontakte: 18,
-        projekte: 4,
-        aktivitaeten: 15
-      }
-    }
-  ];
+export class CompanyComponent implements OnInit {
+  companies: CompanyWithId[] = [];
+  isLoading = true;
 
-  getEmail(index: number): string {
-    return `kontakt@musterfirma${index}.de`;
+  constructor(
+    private dialog: MatDialog,
+    private firestore: Firestore
+  ) {}
+
+  ngOnInit() {
+    this.loadCompanies();
+  }
+
+  private loadCompanies() {
+    const companiesRef = collection(this.firestore, 'companies');
+    
+    onSnapshot(companiesRef, (snapshot) => {
+      this.companies = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          stats: data['stats'] || {
+            kontakte: 0,
+            projekte: 0,
+            aktivitaeten: 0
+          }
+        } as CompanyWithId;
+      });
+      this.isLoading = false;
+    }, (error) => {
+      console.error('Fehler beim Laden der Unternehmen:', error);
+      this.isLoading = false;
+    });
+  }
+
+  openAddCompanyDialog() {
+    const dialogRef = this.dialog.open(AddCompanyComponent);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Dialog wurde mit einem Ergebnis geschlossen
+        console.log('Neues Unternehmen wurde hinzugefügt:', result);
+      }
+    });
+  }
+
+  openEditCompanyDialog(company: CompanyWithId) {
+    const dialogRef = this.dialog.open(EditCompanyComponent, {
+      data: {
+        company: company,
+        docId: company.id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Unternehmen wurde aktualisiert:', result);
+      }
+    });
+  }
+
+  openDetailsDialog(company: CompanyWithId) {
+    const dialogRef = this.dialog.open(CompanyDetailsComponent, {
+      data: {
+        company: company,
+        docId: company.id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.action === 'edit') {
+        this.openEditCompanyDialog(company);
+      }
+    });
+  }
+
+  async deleteCompany(company: CompanyWithId): Promise<void> {
+    const dialogRef = this.dialog.open(DeleteCompanyDialogComponent, {
+      data: { company }
+    });
+
+    dialogRef.afterClosed().subscribe(async (confirmed: boolean) => {
+      if (confirmed) {
+        try {
+          const companyRef = doc(this.firestore, 'companies', company.id);
+          await deleteDoc(companyRef);
+          console.log('Unternehmen wurde erfolgreich gelöscht');
+        } catch (error) {
+          console.error('Fehler beim Löschen des Unternehmens:', error);
+        }
+      }
+    });
   }
 }
