@@ -3,7 +3,8 @@
  * @description Routing-Konfiguration der uChatCRM-Anwendung.
  * Definiert alle verfügbaren Routen und deren Zugriffsberechtigungen.
  */
-import { Routes } from '@angular/router';
+import { Routes, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
 import { UserComponent } from './user/user.component';
 import { UserInformationComponent } from './user/user-information/user-information.component';
 import { HomeComponent } from './home/home.component';
@@ -13,6 +14,7 @@ import { authGuard } from './guards/auth.guard';
 import { SettingsComponent } from './settings/settings.component';
 import { ReportsComponent } from './reports/reports.component';
 import { CompanyComponent } from './company/company.component';
+import { AuthService } from './services/auth.service';
 
 /**
  * @type {Routes}
@@ -32,7 +34,15 @@ import { CompanyComponent } from './company/company.component';
 export const routes: Routes = [
     {
         path: '',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+            const auth = inject(AuthService);
+            if (auth.isAuthenticated()) {
+                inject(Router).navigate(['/dashboard']);
+                return false;
+            }
+            return true;
+        }]
     },
     {
         path: 'dashboard',
@@ -51,11 +61,27 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+            const auth = inject(AuthService);
+            if (auth.isAuthenticated()) {
+                inject(Router).navigate(['/dashboard']);
+                return false;
+            }
+            return true;
+        }]
     },
     {
         path: 'register',
-        component: RegComponent
+        component: RegComponent,
+        canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+            const auth = inject(AuthService);
+            if (auth.isAuthenticated()) {
+                inject(Router).navigate(['/dashboard']);
+                return false;
+            }
+            return true;
+        }]
     },
     {
         path: 'company',
