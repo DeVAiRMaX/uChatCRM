@@ -4,54 +4,54 @@
  * Verwaltet den Authentifizierungsstatus und Token-Handling.
  */
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   /** BehaviorSubject für den Authentifizierungsstatus */
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   
   /** Observable für den Authentifizierungsstatus */
-  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   /**
    * Konstruktor des AuthService
    * Prüft den initialen Authentifizierungsstatus
    */
   constructor() {
-    this.checkAuthStatus();
+    this.checkInitialLoginState();
   }
 
   /**
    * Prüft den aktuellen Authentifizierungsstatus
    * @private
    */
-  private checkAuthStatus() {
+  private checkInitialLoginState(): void {
     const token = localStorage.getItem('token');
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    this.isAuthenticatedSubject.next(isLoggedIn && !!token);
+    this.isLoggedInSubject.next(isLoggedIn && !!token);
   }
 
   /**
    * Führt den Login-Prozess durch
    * @param token - Der Authentifizierungs-Token
    */
-  login(token: string) {
+  login(token: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('isLoggedIn', 'true');
-    this.isAuthenticatedSubject.next(true);
+    this.isLoggedInSubject.next(true);
   }
 
   /**
    * Führt den Logout-Prozess durch
    * Entfernt Token und setzt den Login-Status zurück
    */
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.setItem('isLoggedIn', 'false');
-    this.isAuthenticatedSubject.next(false);
+    this.isLoggedInSubject.next(false);
   }
 
   /**
