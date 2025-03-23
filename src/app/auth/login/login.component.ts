@@ -21,6 +21,7 @@ export class LoginComponent {
   isLoading = false;
   showSuccess = false;
   loginError = '';
+  isGuestLogin = false;
 
   constructor(
     private firestore: Firestore, 
@@ -34,7 +35,7 @@ export class LoginComponent {
     try {
       const userData = await this.checkUserExists();
       await this.verifyPassword(userData);
-      this.handleSuccess();
+      await this.handleSuccess();
     } catch (err) {
       this.handleError(err);
     }
@@ -63,13 +64,19 @@ export class LoginComponent {
     }
   }
 
-  private handleSuccess(): void {
-    this.isLoading = false;
-    this.showSuccess = true;
-    // Generiere ein einfaches Token (in der Praxis sollte dies vom Backend kommen)
-    const token = btoa(this.loginData.email + ':' + Date.now());
-    this.authService.login(token);
-    this.navigateToDashboard();
+  private async handleSuccess(): Promise<void> {
+    try {
+      // Simuliere eine kurze Ladezeit für die Animation
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      this.isLoading = false;
+      this.showSuccess = true;
+      // Generiere ein einfaches Token (in der Praxis sollte dies vom Backend kommen)
+      const token = btoa(this.loginData.email + ':' + Date.now());
+      this.authService.login(token);
+      this.navigateToDashboard();
+    } catch (err) {
+      this.handleError(err);
+    }
   }
 
   private navigateToDashboard(): void {
@@ -91,6 +98,23 @@ export class LoginComponent {
         break;
       default:
         this.loginError = 'Ein Fehler ist aufgetreten';
+    }
+  }
+
+  async loginAsGuest(): Promise<void> {
+    this.startLoading();
+    try {
+      this.isGuestLogin = true;
+      // Simuliere eine kurze Ladezeit für die Animation
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Generiere ein temporäres Gast-Token
+      const guestToken = 'guest_' + Date.now();
+      this.authService.login(guestToken);
+      this.isLoading = false;
+      this.showSuccess = true;
+      this.navigateToDashboard();
+    } catch (err) {
+      this.handleError(err);
     }
   }
 }

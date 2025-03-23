@@ -24,7 +24,15 @@ export class UserInformationComponent {
   ngOnInit() {
     this.userID = this.route.snapshot.params['id'];
     const userRef = onSnapshot(doc(this.firestore, 'users', this.userID), (doc) => {
-      this.user = doc.data();
+      if (doc.exists()) {
+        this.user = {
+          id: doc.id,
+          ...doc.data()
+        };
+        if (this.user.birthday) {
+          this.birthday = new Date(Number(this.user.birthday));
+        }
+      }
     });
   }
 
@@ -34,9 +42,10 @@ export class UserInformationComponent {
     dialogRef.componentInstance.userID = this.userID;
   }
 
-  DeleteUser() {
-    const userRef = doc(this.firestore, 'users', this.userID);
-    deleteDoc(userRef);
-    location.href = '/user';
+  DeleteUser(userId: string) {
+    const userRef = doc(this.firestore, 'users', userId);
+    deleteDoc(userRef).then(() => {
+      window.history.back();
+    });
   }
 }

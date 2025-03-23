@@ -36,7 +36,7 @@
 
     <!-- Unternehmensliste -->
     <div class="company-grid" *ngIf="!isLoading && companies.length > 0">
-      <mat-card class="company-card" *ngFor="let company of companies">
+      <mat-card class="company-card" *ngFor="let company of companies" (click)="openDetailsDialog(company)" style="cursor: pointer">
         <mat-card-header>
           <mat-icon mat-card-avatar>business</mat-icon>
           <mat-card-title>{{company.name}}</mat-card-title>
@@ -67,13 +67,10 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-button color="primary" (click)="openEditCompanyDialog(company)">
+          <button mat-button color="primary" (click)="$event.stopPropagation(); openEditCompanyDialog(company)">
             <mat-icon>edit</mat-icon> Bearbeiten
           </button>
-          <button mat-button color="accent" (click)="openDetailsDialog(company)">
-            <mat-icon>visibility</mat-icon> Details
-          </button>
-          <button mat-button color="warn" (click)="deleteCompany(company)">
+          <button mat-button color="warn" (click)="$event.stopPropagation(); deleteCompany(company)">
             <mat-icon>delete</mat-icon> Löschen
           </button>
         </mat-card-actions>

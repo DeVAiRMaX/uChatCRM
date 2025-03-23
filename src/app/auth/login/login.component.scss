@@ -57,6 +57,20 @@
   }
 }
 
+@keyframes guestSuccessScale {
+  0% {
+    transform: scale(0.8) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
 :host {
   display: block;
   position: fixed;
@@ -119,7 +133,9 @@
     justify-content: center;
     background: rgba(255, 255, 255, 0.97);
     border-radius: 16px;
-    z-index: 10;
+    z-index: 20;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
     
     .success-icon {
       font-size: 4rem;
@@ -156,13 +172,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.97);
     border-radius: 16px;
     z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
 
     .submit-text {
       margin-top: 1rem;
       color: #666;
+      animation: fadeIn 0.3s ease-out 0.2s both;
+    }
+
+    mat-spinner {
+      animation: fadeIn 0.3s ease-out both;
     }
   }
 
@@ -237,7 +260,8 @@
       }
 
       .login-button {
-        margin-top: 0.75rem;
+        width: 100%;
+        margin-top: 16px;
         padding: 1rem;
         font-size: 1.1rem;
         border-radius: 8px;
@@ -250,6 +274,77 @@
           &:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(63, 81, 181, 0.4);
+          }
+        }
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 24px 0;
+        animation: fadeIn 0.5s ease-out 0.9s both;
+
+        &::before,
+        &::after {
+          content: '';
+          flex: 1;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          animation: dividerFadeIn 0.8s ease-out forwards;
+        }
+
+        span {
+          padding: 0 16px;
+          color: rgba(0, 0, 0, 0.6);
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+      }
+
+      .guest-login-container {
+        animation: fadeIn 0.5s ease-out 1s both;
+        
+        .guest-login-button {
+          width: 100%;
+          padding: 0.8rem;
+          font-size: 1rem;
+          border-radius: 25px;
+          border: 2px solid rgba(124, 77, 255, 0.5);
+          background: transparent;
+          color: #7c4dff;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+
+          mat-icon {
+            font-size: 20px;
+            height: 20px;
+            width: 20px;
+            transition: transform 0.3s ease;
+          }
+
+          &:hover {
+            animation: guestButtonHover 0.3s forwards;
+            background: linear-gradient(45deg, rgba(124, 77, 255, 0.1), rgba(63, 81, 181, 0.1));
+            border-color: #7c4dff;
+
+            mat-icon {
+              transform: scale(1.1);
+            }
+          }
+
+          &:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+
+          &[disabled] {
+            opacity: 0.6;
+            cursor: not-allowed;
+            animation: none;
           }
         }
       }

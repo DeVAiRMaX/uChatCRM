@@ -26,7 +26,7 @@
           <mat-icon>edit</mat-icon>
           <span>Bearbeiten</span>
         </button>
-        <button mat-menu-item class="delete-button" (click)="DeleteUser()">
+        <button mat-menu-item class="delete-button" (click)="DeleteUser(userID); $event.stopPropagation()">
           <mat-icon>delete</mat-icon>
           <span>Löschen</span>
         </button>

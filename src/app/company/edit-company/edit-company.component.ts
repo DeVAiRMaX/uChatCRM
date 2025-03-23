@@ -103,8 +103,11 @@ export class EditCompanyComponent implements OnInit {
       try {
         this.isLoading = true;
         const updatedCompany = {
-          ...this.data.company,
-          ...this.companyForm.value
+          name: this.companyForm.value.name,
+          branche: this.companyForm.value.branche,
+          standort: this.companyForm.value.standort,
+          telefon: this.companyForm.value.telefon,
+          email: this.companyForm.value.email
         };
         
         const companyRef = doc(this.firestore, 'companies', this.data.docId);

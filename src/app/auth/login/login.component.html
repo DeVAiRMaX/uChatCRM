@@ -12,12 +12,12 @@
   >
     <div class="success-overlay" *ngIf="showSuccess">
       <mat-icon class="success-icon" color="primary">check_circle</mat-icon>
-      <p class="success-text">Login erfolgreich!</p>
+      <p class="success-text">{{ isGuestLogin ? 'Gast-Login erfolgreich!' : 'Login erfolgreich!' }}</p>
       <p class="success-subtext">Sie werden weitergeleitet...</p>
     </div>
     <div class="submit-overlay" *ngIf="isLoading">
       <mat-spinner diameter="50" color="accent"></mat-spinner>
-      <p class="submit-text">Login wird überprüft...</p>
+      <p class="submit-text">{{ isGuestLogin ? 'Gast-Login wird vorbereitet...' : 'Login wird überprüft...' }}</p>
     </div>
     <mat-card-header>
       <mat-card-title>
@@ -73,6 +73,21 @@
         >
           Anmelden
         </button>
+        <div class="divider">
+          <span>oder</span>
+        </div>
+        <div class="guest-login-container">
+          <button
+            mat-stroked-button
+            color="accent"
+            class="guest-login-button"
+            (click)="loginAsGuest()"
+            [disabled]="isLoading"
+          >
+            <mat-icon>person_outline</mat-icon>
+            <span>Als Gast testen</span>
+          </button>
+        </div>
       </form>
       <div class="login-footer">
         <p>Noch kein Konto? <a [routerLink]="['/register']">Registrieren</a></p>

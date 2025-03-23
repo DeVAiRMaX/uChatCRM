@@ -7,71 +7,22 @@
   </mat-card>
 </div>
 
-<!-- <div class="dashboard-grid">
-
-
-  <mat-card class="dashboard-card">
+<div class="dashboard-grid">
+  <mat-card class="dashboard-card full-width">
     <mat-card-header>
       <mat-card-title>Schnellübersicht</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-value">0</div>
-          <div class="stat-label">Aktive Kunden</div>
+        <div class="stat-item" [routerLink]="['/user']">
+          <div class="stat-value">{{totalUsers}}</div>
+          <div class="stat-label">Gesamt Benutzer</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">0</div>
-          <div class="stat-label">Offene Deals</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">0€</div>
-          <div class="stat-label">Umsatz (Monat)</div>
+        <div class="stat-item" [routerLink]="['/company']">
+          <div class="stat-value">{{totalCompanies}}</div>
+          <div class="stat-label">Gesamt Firmen</div>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
-
-  <mat-card class="dashboard-card">
-    <mat-card-header>
-      <mat-card-title>Letzte Aktivitäten</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item>
-          <mat-icon matListItemIcon>person_add</mat-icon>
-          <div matListItemTitle>Neuer Kunde hinzugefügt</div>
-          <div matListItemLine>Vor 2 Stunden</div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon matListItemIcon>edit</mat-icon>
-          <div matListItemTitle>Kundendaten aktualisiert</div>
-          <div matListItemLine>Vor 3 Stunden</div>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="dashboard-card">
-    <mat-card-header>
-      <mat-card-title>Schnellzugriff</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="quick-actions">
-        <button mat-raised-button color="primary" class="quick-action-button">
-          <mat-icon>person_add</mat-icon>
-          Neuer Kunde
-        </button>
-        <button mat-raised-button color="accent" class="quick-action-button">
-          <mat-icon>add_business</mat-icon>
-          Neuer Deal
-        </button>
-        <button mat-raised-button color="warn" class="quick-action-button">
-          <mat-icon>assessment</mat-icon>
-          Berichte
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div> -->
-    
+</div>

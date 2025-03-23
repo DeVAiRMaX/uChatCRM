@@ -152,16 +152,17 @@ button[mat-icon-button] {
       display: flex;
       align-items: center;
       gap: 1rem;
+      cursor: pointer;
       
       .logo-icon {
         font-size: 2rem;
         height: 2rem;
         width: 2rem;
         color: white;
-        animation: logoSpin 3s ease-in-out infinite;
+        transition: transform 3s ease-in-out;
         
         &:hover {
-          animation-play-state: paused;
+          animation: logoSpin 3s ease-in-out infinite;
         }
       }
       
